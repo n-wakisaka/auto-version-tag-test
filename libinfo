@@ -1,0 +1,3 @@
+PROJNAME=auto-version-tag-test
+VERSION=1.0.0
+DEPENDENCY="zeda=1.8.0;zm=1.8.5;zeo=1.14.0"
