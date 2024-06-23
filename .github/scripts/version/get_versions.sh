@@ -1,7 +1,7 @@
 #!/bin/bash
 
-config_files=(config.org libinfo)
-for config in config_files; do
+config_files="config.org libinfo"
+for config in $config_files; do
     if [ -f "$config" ]; then
         source "$config"
     fi

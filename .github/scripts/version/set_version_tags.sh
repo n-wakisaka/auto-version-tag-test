@@ -1,6 +1,6 @@
 #!/bin/bash
 
-config_files=(libinfo config.org)
+config_files="libinfo config.org"
 
 # mainブランチの履歴にタグ付与してからそれ以外のコミットにタグ付け
 main_commit_logs=$(git log --first-parent main --reverse --pretty=format:"%H")
