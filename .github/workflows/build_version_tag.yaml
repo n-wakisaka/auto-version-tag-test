@@ -17,6 +17,9 @@ jobs:
         id: versions
         run: .github/scripts/version/get_versions.sh
 
+      - name: Set git config for github actions bot user
+        run: .github/scripts/set_bot_user_config.sh
+
       - name: Set all version tags
         if: ${{ steps.versions.outputs.TAG_VERSION == '' }}
         run: .github/scripts/version/set_version_tags.sh
