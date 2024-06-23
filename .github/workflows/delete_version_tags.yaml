@@ -9,6 +9,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      
+      - name: Set git config for github actions bot user
+        run: .github/scripts/set_bot_user_config.sh
 
       - name: Delete version tags
         run: .github/scripts/version/delete_version_tags.sh
