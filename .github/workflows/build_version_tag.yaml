@@ -23,7 +23,7 @@ jobs:
           
       - name: Set current version tag
         if: ${{ steps.versions.outputs.IS_VERSION_UPDATED == 'true' }}
-        run: 
+        run: |
           tag_name="v${{ steps.versions.outputs.VERSION }}"
           git tag -a $tag_name -m "version ${{ steps.versions.outputs.VERSION }}"
           git push origin $tag_name
