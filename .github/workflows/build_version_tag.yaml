@@ -1,0 +1,28 @@
+name: Build Version Tag
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get versions
+        id: versions
+        run: .github/scripts/version/get_versions.sh
+
+      - name: Set all version tags
+        if: ${{ output.versions.TAG_VERSION == '' }}
+        run: .github/scripts/version/set_version_tags.sh
+          
+      - name: Set current version tag
+        if: ${{ output.versions.IS_VERSION_UPDATED == 'true' }}
+        run: 
+          tag_name="v$VERSION"
+          git tag -a $tag_name -m "version $VERSION"
+          git push origin $tag_name
