@@ -18,5 +18,10 @@ jobs:
         run: .github/scripts/version/get_versions.sh
 
       - name: Check version updated
-        if: ${{ steps.versions.outputs.IS_VERSION_UPDATED == 'false' }}
-        run: exit 1
+        run: |
+          if [ "${{ steps.versions.outputs.IS_VERSION_UPDATED }}" = "true" ]; then
+            echo "Version is updated"
+          else
+            echo "Version is not updated"
+            exit 1
+          fi
