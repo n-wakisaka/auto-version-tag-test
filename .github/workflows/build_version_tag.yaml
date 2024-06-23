@@ -24,6 +24,6 @@ jobs:
       - name: Set current version tag
         if: ${{ output.versions.IS_VERSION_UPDATED == 'true' }}
         run: 
-          tag_name="v$VERSION"
-          git tag -a $tag_name -m "version $VERSION"
+          tag_name="v${{ output.versions.VERSION }}"
+          git tag -a $tag_name -m "version ${{ output.versions.VERSION }}"
           git push origin $tag_name
