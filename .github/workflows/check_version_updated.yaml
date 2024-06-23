@@ -18,5 +18,5 @@ jobs:
         run: .github/scripts/version/get_versions.sh
 
       - name: Check version updated
-        if: ${{ output.versions.IS_VERSION_UPDATED == 'false' }}
+        if: ${{ steps.versions.outputs.IS_VERSION_UPDATED == 'false' }}
         run: exit 1

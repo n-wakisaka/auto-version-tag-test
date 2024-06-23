@@ -18,12 +18,12 @@ jobs:
         run: .github/scripts/version/get_versions.sh
 
       - name: Set all version tags
-        if: ${{ output.versions.TAG_VERSION == '' }}
+        if: ${{ steps.versions.outputs.TAG_VERSION == '' }}
         run: .github/scripts/version/set_version_tags.sh
           
       - name: Set current version tag
-        if: ${{ output.versions.IS_VERSION_UPDATED == 'true' }}
+        if: ${{ steps.versions.outputs.IS_VERSION_UPDATED == 'true' }}
         run: 
-          tag_name="v${{ output.versions.VERSION }}"
-          git tag -a $tag_name -m "version ${{ output.versions.VERSION }}"
+          tag_name="v${{ steps.versions.outputs.VERSION }}"
+          git tag -a $tag_name -m "version ${{ steps.versions.outputs.VERSION }}"
           git push origin $tag_name
