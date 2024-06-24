@@ -24,13 +24,14 @@ jobs:
         id: versions
         run: .github/scripts/version/get_versions.sh
 
-      - name: Set all version tags
-        if: ${{ steps.versions.outputs.TAG_VERSION == '' }}
-        run: .github/scripts/version/set_version_tags.sh
-          
-      - name: Set current version tag
-        if: ${{ steps.versions.outputs.IS_VERSION_UPDATED == 'true' }}
+      - name: Set version tags
         run: |
-          tag_name="v${{ steps.versions.outputs.VERSION }}"
-          git tag -a $tag_name -m "version ${{ steps.versions.outputs.VERSION }}"
-          git push origin $tag_name
+          if ${{ steps.versions.outputs.TAG_VERSION == '' }}; then
+            .github/scripts/version/set_version_tags.sh
+
+          elif ${{ steps.versions.outputs.IS_VERSION_UPDATED == 'true' }}; then
+            tag_name="v${{ steps.versions.outputs.VERSION }}"
+            git tag -a $tag_name -m "version ${{ steps.versions.outputs.VERSION }}"
+            git push origin $tag_name
+            echo "Tagged $commit with $tag_name"
+          fi
